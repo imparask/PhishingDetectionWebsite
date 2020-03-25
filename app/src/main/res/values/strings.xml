@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PhishingWebsiteDetection</string>
+    <string name="model_name">PhishingDetection</string>
+</resources>

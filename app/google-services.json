@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "477436431636",
+    "firebase_url": "https://nodemcu-1e00e.firebaseio.com",
+    "project_id": "nodemcu-1e00e",
+    "storage_bucket": "nodemcu-1e00e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:477436431636:android:ca36a2e9d5d4fbc4300601",
+        "android_client_info": {
+          "package_name": "com.finalyear.phishingwebsitedetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "477436431636-kl0atdi8o5s8hthlnk8708bbusstnnc1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3lyr9u2vksWlZjkhWJsWt0sQg0x4XxvU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "477436431636-kl0atdi8o5s8hthlnk8708bbusstnnc1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
