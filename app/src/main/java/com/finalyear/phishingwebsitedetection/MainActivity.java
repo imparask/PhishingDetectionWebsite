@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.chaquo.python.PyObject;
 import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -116,7 +117,11 @@ public class MainActivity extends AppCompatActivity {
                 for(Float f : outList){
                     featureList[0][i++]=f;
                 }
-                getUrlResult();
+
+                Log.d(TAG,"feature list length : "+featureList[0].length);
+
+                    getUrlResult();
+
             }
         };
         newThread.start();
@@ -163,26 +168,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getUrlResult(){
+        Log.d(TAG,"getUrlResult: called..");
         if(isDownloaded) {
-            try {
-                modelInputs = new FirebaseModelInputs.Builder().add(featureList).build();
-                interpreter.run(modelInputs, inputOutputOptions)
-                        .addOnSuccessListener(new OnSuccessListener<FirebaseModelOutputs>() {
+                try {
+                        modelInputs = new FirebaseModelInputs.Builder().add(featureList).build();
+                        Log.d(TAG, "Firebase Model Input Builder called..");
+                        interpreter.run(modelInputs, inputOutputOptions).addOnCompleteListener(new OnCompleteListener<FirebaseModelOutputs>() {
                             @Override
-                            public void onSuccess(FirebaseModelOutputs result) {
+                            public void onComplete(@NonNull Task<FirebaseModelOutputs> task) {
 
-                                float[][] output = result.getOutput(0);
-                                float modelOutput = output[0][0];
+                                if(featureList[0].length >13){
+                                    printResult(1);
+                                }
+                                else{
+                                    float[][] output = task.getResult().getOutput(0);
+                                    float modelOutput = output[0][0];
 
-                                Log.d(TAG,"Model Prediction Result : "+ modelOutput);
-                                printResult(modelOutput);
+                                    Log.d(TAG, "Model Prediction Result : " + modelOutput);
+                                    printResult(modelOutput);
+                                }
+
                             }
                         });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    printResult(1);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_SHORT);
+                }
             }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     private void printResult(float modelOutput) {
